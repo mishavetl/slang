@@ -1,11 +1,11 @@
 #include "slang/utils.h"
 
-int find(char key[], char q)
+int find(char keys[], char q)
 {
-    int i;
+    int i = 0;
 
-    while (key[i] != '\0') {
-        if (key[i] == q) {
+    while (keys[i] != '\0') {
+        if (keys[i] == q) {
             return i;
         }
         i++;
