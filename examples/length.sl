@@ -1,8 +1,10 @@
 __
 program: length
-& - length
+/& - length
 __
 
 $1
+
+/&
 
 >>

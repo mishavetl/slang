@@ -4,11 +4,15 @@
 #include "slang/parser.h"
 #include "slang/formatutils.h"
 #include "../lib/slanglib/io.h"
+#include "slang/utils.h"
+
+extern char iolib_keys[10];
+extern int (*iolib_funcs[10]) (char*);
 
 int parse(char *content, long fsize, int argsc, char *args[])
 {
-    int i;
-    char *res;
+    int i, j;
+    char *res, *str;
     bool _func = false;
     char fname;
 
@@ -34,9 +38,16 @@ int parse(char *content, long fsize, int argsc, char *args[])
             } else if (fname == '$') {
                 res = args[((int) content[i]) - 49];
                 // printf("args: %s\n", args[0]);
-            } else if (fname == '>' && content[i] == '>') {
+            } else if (fname == '>') {
                 // puts("here");
-                io_out(res);
+                j = find(iolib_keys, content[i]);
+
+                if (j != -1) {
+                    iolib_funcs[j](res);
+                } else {
+                    sprintf(str, "'>' has no member '%c' on %d", content[i], i);
+                    errorp(str);
+                }
             }
 
             _func = !_func;
