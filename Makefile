@@ -2,7 +2,7 @@ FLAGS=-g -Wall
 
 all:
 	mkdir -p bin
-	gcc src/main.c src/console.c -o bin/slang
+	gcc -g -Wall src/main.c src/console.c src/formatutils.c src/parser.c lib/io.c -o bin/slang
 
 clean:
 	rm -rf bin

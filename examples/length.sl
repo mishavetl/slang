@@ -1,2 +1,8 @@
-__program: length__
->>&
+__
+program: length
+& - length
+__
+
+$1
+
+>>

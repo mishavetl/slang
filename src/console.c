@@ -1,33 +1,30 @@
 #include <stdio.h>
-
-// ==================================================
-// Format utils
-// ==================================================
-
-void errorp(char *mesg)
-{
-    printf("\e[1;31m[e] %s\e[0m\n", mesg);
-}
-
-
-void infop(char *mesg)
-{
-    printf("\e[1;34m[i] %s\e[0m\n", mesg);
-}
-
-
+#include <string.h>
+#include "slang/console.h"
+#include "slang/formatutils.h"
 
 void help()
 {
-    puts("SLang (String Language) \
-        slang filepath [-h] \
-        -h, --help -- show help message \
-        filepath   -- path to the script file"
+    puts("Help: \
+    \nSLang (String Programming Language) \n \
+    slang filepath [-h] \n\t \
+    -h, --help -- show help message \n\t \
+    filepath   -- path to the script file"
     );
 }
 
 
 char *filepath;
+char *args[3];
+
+int argsc = 0;
+
+void set_args(int argc, char *argv[])
+{
+    for (; argsc < argc - 2; argsc++) {
+        args[argsc] = argv[argsc + 2];
+    }
+}
 
 int parse_args(int argc, char *argv[])
 {
@@ -36,22 +33,17 @@ int parse_args(int argc, char *argv[])
         infop("try --help, -h");
 
         return 1;
-
-    } else if (argc > 2) {
-        errorp("too many arguments");
-        infop("try --help, -h");
-
-        return 1;
-
     }
 
-    if (argv[1] == "-h" || argv[1] == "--help") {
+    if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
         help();
 
         return 1;
     }
 
     filepath = argv[1];
+
+    set_args(argc, argv);
 
     return 0;
 }
