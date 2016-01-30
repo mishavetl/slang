@@ -5,7 +5,7 @@
 
 void help()
 {
-    puts("Help: \
+    puts("Copyright (C) 2016 Michael Vietluzhskih \
     \nSLang (String Programming Language) \n \
     slang filepath [-h] \n\t \
     -h, --help -- show help message \n\t \
